@@ -2,6 +2,13 @@ pipeline {
     agent any
 
     stages {
+        stage('Check Java Version') {
+            steps {
+                // Verifica a versão do Java
+                sh 'java -version'
+            }
+        }
+
         stage('Build') {
             steps {
                 // Faz o build do projeto usando Gradle
