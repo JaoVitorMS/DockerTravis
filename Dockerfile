@@ -1,10 +1,13 @@
-# Baseado na imagem oficial do Jenkins Blue Ocean
-FROM jenkins/jenkins:2.414.2
+FROM jenkins/jenkins:lts
 
-# Configuração adicional (caso necessária) pode ser feita aqui
+# Instale o JDK 21
 USER root
+RUN apt-get update && \
+    apt-get install -y openjdk-23-jdk && \
+    apt-get clean;
 
-# Instalações ou configurações extras podem ser adicionadas aqui
-# Exemplo: RUN apt-get update && apt-get install -y <algum-pacote>
+# Configure o JAVA_HOME
+ENV JAVA_HOME /usr/lib/jvm/java-21-openjdk-amd64
+ENV PATH $JAVA_HOME/bin:$PATH
 
 USER jenkins
