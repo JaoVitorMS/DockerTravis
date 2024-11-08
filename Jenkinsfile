@@ -1,11 +1,6 @@
 pipeline {
     agent any
 
-    environment {
-        JAVA_HOME = '/usr/lib/jvm/java-23-openjdk-amd64'
-        PATH = "${env.JAVA_HOME}/bin:${env.PATH}"
-    }
-
     stages {
         stage('Check Java Version') {
             steps {
