@@ -13,5 +13,5 @@ public interface ProductRepositoryPort {
 
     List<Product> findAll();
     List<Product> findByName(String name);
-    List<Product> findByPrice(Double price);
+    List<Product> findByPrice(double price);
 }

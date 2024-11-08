@@ -1,0 +1,35 @@
+services:
+  jenkins-blueocean:
+    image: myjenkins-blueocean:2.414.2
+    container_name: jenkins-blueocean
+    restart: on-failure
+    environment:
+      - DOCKER_HOST=tcp://docker:2376
+      - DOCKER_CERT_PATH=/certs/client
+      - DOCKER_TLS_VERIFY=1
+    networks:
+      - jenkins
+    volumes:
+      - jenkins-data:/var/jenkins_home
+      - jenkins-docker-certs:/certs/client:ro
+    ports:
+      - "8080:8080"
+      - "50000:50000"
+    user: root # Necessário para instalar pacotes com permissões elevadas
+    entrypoint: |
+      /bin/bash -c "
+      apt-get update &&
+      apt-get install -y curl &&
+      curl -fsSL https://deb.nodesource.com/setup_lts.x | bash - &&
+      apt-get install -y nodejs &&
+      exec /usr/bin/tini -- /usr/local/bin/jenkins.sh
+      cat /var/jenkins_home/secrets/initialAdminPassword
+      "
+
+networks:
+  jenkins:
+    driver: bridge
+
+volumes:
+  jenkins-data:
+  jenkins-docker-certs:

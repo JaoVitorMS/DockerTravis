@@ -41,7 +41,7 @@ public class ProductService {
                 .toList();
     }
 
-    public List<ProductDto> listByPrice ( Double price ) {
+    public List<ProductDto> listByPrice ( double price ) {
         List<Product> products = productRepository.findByPrice( price );
         return products.stream()
                 .map(product -> mapper.toDto(product))

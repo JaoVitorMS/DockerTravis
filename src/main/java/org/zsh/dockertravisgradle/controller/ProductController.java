@@ -3,10 +3,7 @@ package org.zsh.dockertravisgradle.controller;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.zsh.dockertravisgradle.dto.ProductDto;
 import org.zsh.dockertravisgradle.service.ProductService;
 
@@ -27,7 +24,6 @@ public class ProductController {
 
     @GetMapping("/listarNome/{nome}")
     public ResponseEntity<List<ProductDto>> listarEstoquePorNome(@PathVariable String nome) {
-        nome = nome.replaceAll("-", " ");
         List<ProductDto> productPerName = productService.listByName(nome);
         return new ResponseEntity<>(productPerName, HttpStatus.ACCEPTED);
     }
@@ -36,5 +32,17 @@ public class ProductController {
     public ResponseEntity<List<ProductDto>> listarEstoquePorPreco(@PathVariable Double price) {
         List<ProductDto> productPerPrice = productService.listByPrice(price);
         return new ResponseEntity<>(productPerPrice, HttpStatus.ACCEPTED);
+    }
+
+    @PostMapping("/cadastrar")
+    public ResponseEntity<ProductDto> cadastrar(@RequestBody ProductDto productDto) {
+        productService.salvarProduto(productDto);
+        return new ResponseEntity<>( HttpStatus.CREATED );
+    }
+
+    @PostMapping("/deletar")
+    public ResponseEntity<ProductDto> deletar(@RequestBody ProductDto productDto) {
+        productService.deletarProduto(productDto);
+        return new ResponseEntity<>( HttpStatus.ACCEPTED );
     }
 }

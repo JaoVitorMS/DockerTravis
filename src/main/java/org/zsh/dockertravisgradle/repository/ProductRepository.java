@@ -33,7 +33,7 @@ public class ProductRepository implements ProductRepositoryPort{
     }
 
     @Override
-    public List<Product> findByPrice ( Double price ) {
+    public List<Product> findByPrice ( double price ) {
         return productRepositoryJPA.findByPrice ( price );
     }
 }

@@ -22,12 +22,12 @@ public class Product {
     private String name;
 
     @Column
-    private Double price;
+    private double price;
 
     @Column
     private StatusProduct statusProduct;
 
-    public Product(String name, Double price) {
+    public Product(String name, double price) {
         this.name = name;
         this.price = price;
         this.statusProduct = StatusProduct.RECEBIDO;
