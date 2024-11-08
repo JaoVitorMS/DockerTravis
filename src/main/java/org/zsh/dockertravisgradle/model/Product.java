@@ -15,7 +15,7 @@ import lombok.Setter;
 public class Product {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @Column
@@ -26,4 +26,10 @@ public class Product {
 
     @Column
     private StatusProduct statusProduct;
+
+    public Product(String name, Double price) {
+        this.name = name;
+        this.price = price;
+        this.statusProduct = StatusProduct.RECEBIDO;
+    }
 }
