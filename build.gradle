@@ -13,6 +13,12 @@ java {
     }
 }
 
+tasks.withType(JavaCompile) {
+    options.forkOptions.javaHome = javaToolchains.launcherFor {
+        languageVersion = JavaLanguageVersion.of(17)
+    }.get().metadata.installationPath.asFile
+}
+
 configurations {
     compileOnly {
         extendsFrom annotationProcessor
